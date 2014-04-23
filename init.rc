@@ -1092,6 +1092,14 @@ service drm /system/bin/drmserver
     user drm
     group drm system audio sdcard_rw net_raw inet drmrpc media
 
+# set service init.d
+service sysinit /system/bin/logwrapper /system/xbin/busybox run-parts /system/etc/init.d
+    user root
+    oneshot
+
+on property:sys.init.d=on
+    start sysinit
+	
 service media /system/bin/mediaserver
     class main
     user root
